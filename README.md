@@ -16,6 +16,14 @@ The installation steps are pretty much the same as with the old version.
 5. Install all neccessary packages using `npm i`
 6. Start the project either using pm2 (`pm2 start index.js`) or using nodejs (`node index.js`)
 
+## Basic Usage
+
+```shell
+curl -H "Content-Type: application/json" -d '{"value":100}' http://localhost:5000/led/brightness/all
+curl -H "Content-Type: application/json" -d '{"value":50}' http://localhost:5000/led/brightness/all
+curl -H "Content-Type: application/json" -d '{"value":10}' http://localhost:5000/led/brightness/all
+```
+
 ## Development Workflow
 
 1. Fork the project
