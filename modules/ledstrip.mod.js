@@ -26,6 +26,7 @@ class Ledstrip {
         value = value.replace("#", ""); // Remove the # if it's there
 
         console.log(`Setting color for ${this.name} to ${value} at handle ${this.handle} on device ${this.bid}`);
+        console.log(`gatttool -i ${this.device} -b ${this.bid} --char-write-req -a ${this.handle} -n 7e070503${value}10ef`);
         await shell.exec(`gatttool -i ${this.device} -b ${this.bid} --char-write-req -a ${this.handle} -n 7e070503${value}10ef`);
         if (shell.error()) return false;
         return true;    
@@ -33,6 +34,7 @@ class Ledstrip {
 
     async setPower(value) {
         console.log(`Setting power for ${this.name} to ${value} at handle ${this.handle} on device ${this.bid}`);
+        console.log(`gatttool -i ${this.device} -b ${this.bid} --char-write-req -a ${this.handle} -n ${value ? "7e0404f00001ff00ef" : "7e0404000000ff00ef"}`);
         await shell.exec(`gatttool -i ${this.device} -b ${this.bid} --char-write-req -a ${this.handle} -n ${value ? "7e0404f00001ff00ef" : "7e0404000000ff00ef"}`);
         if (shell.error()) return false;
         return true;
@@ -43,6 +45,7 @@ class Ledstrip {
         value = this.d2h(value);
         console.log(`Setting brightness for ${this.name} to ${value} at handle ${this.handle} on device ${this.bid}`);
 
+        console.log(`gatttool -i ${this.device} -b ${this.bid} --char-write-req -a ${this.handle} -n 7e0401${value}01ffff00ef`);
         await shell.exec(`gatttool -i ${this.device} -b ${this.bid} --char-write-req -a ${this.handle} -n 7e0401${value}01ffff00ef`);
         if (shell.error()) return false;
         return true;
@@ -50,6 +53,7 @@ class Ledstrip {
 
     async sendCustom(value) {
         console.log(`Sending custom command for ${this.name} to ${value} at handle ${this.handle} on device ${this.bid}`);
+        console.log(`gatttool -i ${this.device} -b ${this.bid} --char-write-req -a ${this.handle} -n ${value}`);
         await shell.exec(`gatttool -i ${this.device} -b ${this.bid} --char-write-req -a ${this.handle} -n ${value}`);
         if (shell.error()) return false;
         return true;
